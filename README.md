@@ -12,7 +12,7 @@ TensorFlow具备以下特点——
 * 便携（True Portability）：支持各类计算设备
 * 链接科研和产品（Connect Research and Product）：加速研究成果转化为实际产品
 * 自动化微分运算（Auto-Differentiation）：帮助机器学习算法自动求出梯度
-* 多语言（Language Options）：利用python构建和执行计算图，同时支持C++的语言，未来将支持Lua、JavaScript、R等
+* 多语言（Language Options）：利用python构建和执行计算图，支持C++的语言，未来将支持Lua、JavaScript、R等
 * 性能优化（Maximize Performance）：支持线程、队列、异步计算，并根据需要分配计算元素
 
 自15年年底开源以来，TensorFlow迅速流行，除了Google自己，Airbnb、Snapchat、eBay、Twitter等知名公司纷纷加入到TensorFlow的使用者阵营当中。
