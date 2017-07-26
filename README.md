@@ -46,6 +46,17 @@ TODO @YSCING
 * ErGo根据分析在数据中检索（Retrieve）候选答案
 * 整理候选答案并抽取（Extraction）作为回答的答案
 
+例如：
+
+```
+master: hello
+ergo:  hey .
+```
+```
+master: what color
+ergo: i don 't know .
+```
+
 # <a name="框架说明-组件"></a>框架说明-组件
 
 <div align=center><img width="900" height="" src="./image/ergoarchitecture.png"/></div>
