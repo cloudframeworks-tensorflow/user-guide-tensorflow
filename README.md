@@ -24,27 +24,43 @@ TensorFlow具备以下特点——
 * [快速部署](#快速部署)
 * [框架说明-业务](#框架说明-业务) 
 * [框架说明-组件](#框架说明-组件)
-    * [xx](#xx)
-    * [xx](#xx)
-    * [xx](#xx)
-    * [xx](#xx)
-* [如何变成自己的项目](#如何变成自己的项目)
+    * [输入](#输入)
+    * [处理](#处理)
+        * [模型](#模型)
+        * [训练](#训练)
+    * [输出](#输出)
 * [更新计划](#更新计划)
 * [社群贡献](#社群贡献)
 
 # <a name="快速部署"></a>快速部署
 
-# <a name="业务说明"></a>框架说明-业务
+TODO @YSCING
 
-<div align=center><img width="900" height="" src="./image/business-architecture.png"/></div>
+# <a name="业务说明-业务"></a>框架说明-业务
 
-# <a name="框架说明-模块"></a>框架说明-模块
+基于TensorFlow自建聊天机器人ErGo可与用户完成智能对话，工作流程如下图所示：
 
-## <a name="xx"></a>xx
+<div align=center><img width="900" height="" src="./image/business-flow.png"/></div>
 
-## <a name="xx"></a>xx
+* 用户（user）发问由ErGo进行分析
+* ErGo根据分析在数据中检索（Retrieve）候选答案
+* 整理候选答案并抽取（Extraction）作为回答的答案
 
-## <a name="xx"></a>xx
+# <a name="框架说明-组件"></a>框架说明-组件
+
+<div align=center><img width="900" height="" src="./image/ergo-architecture.png"/></div>
+
+TODO @YSCING
+
+## <a name="输入"></a>输入
+
+## <a name="处理"></a>处理
+
+### <a name="模型"></a>模型
+
+### <a name="训练"></a>训练
+
+## <a name="输出"></a>输出
 
 # <a name="更新计划"></a>更新计划
 
@@ -62,5 +78,4 @@ TensorFlow具备以下特点——
 -------
 
 [云框架](ABOUT.md)系列主题，遵循[APACHE LICENSE 2.0](LICENSE.md)协议发布。
-
 
