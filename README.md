@@ -40,7 +40,7 @@ TODO @YSCING
 
 基于TensorFlow自建聊天机器人ErGo可与用户完成智能对话，工作流程如下图所示：
 
-<div align=center><img width="900" height="" src="./image/business-flow.png"/></div>
+<div align=center><img width="900" height="" src="./image/businessflow.png"/></div>
 
 * 用户（User）发问经由ErGo进行分析
 * ErGo根据分析在数据中检索（Retrieve）候选答案
@@ -48,7 +48,7 @@ TODO @YSCING
 
 # <a name="框架说明-组件"></a>框架说明-组件
 
-<div align=center><img width="900" height="" src="./image/ergo-architecture.png"/></div>
+<div align=center><img width="900" height="" src="./image/ergoarchitecture.png"/></div>
 
 TODO @YSCING
 
