@@ -42,7 +42,7 @@ TODO @YSCING
 
 <div align=center><img width="900" height="" src="./image/business-flow.png"/></div>
 
-* 用户（user）发问由ErGo进行分析
+* 用户（user）发问经由ErGo进行分析
 * ErGo根据分析在数据中检索（Retrieve）候选答案
 * 整理候选答案并抽取（Extraction）作为回答的答案
 
@@ -60,7 +60,7 @@ TODO @YSCING
 
 ### <a name="训练"></a>训练
 
-## <a name="输出"></a>输出
+### <a name="输出"></a>输出
 
 # <a name="更新计划"></a>更新计划
 
