@@ -45,17 +45,16 @@ TODO @YSCING
 * 用户（User）发问经由ErGo进行分析
 * ErGo根据分析在数据中检索（Retrieve）候选答案
 * 整理候选答案并抽取（Extraction）作为回答的答案
+* 例如——
 
-例如：
-
-```
-master: hello
-ergo:  hey .
-```
-```
-master: what color
-ergo: i don 't know .
-```
+    ```
+    master: hello
+    ergo:  hey .
+    ```
+    ```
+    master: what color
+    ergo: i don 't know .
+    ```
 
 # <a name="框架说明-组件"></a>框架说明-组件
 
