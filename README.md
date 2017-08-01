@@ -34,43 +34,45 @@ TensorFlow具备以下特点——
 
 # <a name="快速部署"></a>快速部署
 
-TODO @YSCING
+docker-compose部署步骤 @yscing
 
 # <a name="业务说明-业务"></a>框架说明-业务
 
-基于TensorFlow自建聊天机器人ErGo可与用户完成智能对话，工作流程如下图所示：
+业务场景介绍 @yscing
 
-<div align=center><img width="900" height="" src="./image/businessflow.png"/></div>
+业务架构图 @yscing
 
-* 用户（User）发问经由ErGo进行分析
-* ErGo根据分析在数据中检索（Retrieve）候选答案
-* 整理候选答案并抽取（Extraction）作为回答的答案
-* 例如——
-
-    ```
-    master: hello
-    ergo:  hey .
-    ```
-    ```
-    master: what color
-    ergo: i don 't know .
-    ```
+业务架构图说明 @yscing
 
 # <a name="框架说明-组件"></a>框架说明-组件
 
-<div align=center><img width="900" height="" src="./image/ergoarchitecture.png"/></div>
+组件／模块架构图 @yscing
 
-TODO @YSCING
+组件／模块架构图说明 @yscing
 
 ## <a name="输入"></a>输入
 
+与业务结合解释组件／模块 @yscing
+
 ## <a name="处理"></a>处理
+
+与业务结合解释组件／模块 @yscing
 
 ### <a name="模型"></a>模型
 
+与业务结合解释组件／模块 @yscing
+
 ### <a name="训练"></a>训练
 
+与业务结合解释组件／模块 @yscing
+
 ## <a name="输出"></a>输出
+
+与业务结合解释组件／模块 @yscing
+
+## <a name="如何变成自己的项目">如何变成自己的项目
+
+变成自己项目需要改哪，怎么改，改完怎么部署 @yscing
 
 # <a name="更新计划"></a>更新计划
 
