@@ -34,43 +34,26 @@ TensorFlow具备以下特点——
 
 # <a name="快速部署"></a>快速部署
 
-Support docker deploy.
+## 一键部署
+[一键部署在好雨云平台](http://app.goodrain.com/group/detail/30/)
+后期会支持在好雨云平台训练
 
-# <a name="业务说明-业务"></a>框架说明-业务
+## 本地部署
+建议利用GPU环境进行训练，可以加快训练节奏.
 
-业务场景介绍 
+1.Git clone相关代码
+2.运行 `python main.py --train`进行相关的
+3.查看训练效果
 
+```python
+docker build -t ergo -f Dockerfile.cpu .
+redis-server &
+docker run -itd -p 8000:8000 --name ergo ergo
+```
+访问  http://localhost:8000即可进行人机对话
 
+其中 learningRate和dropout这两个参数对训练的效果有着直接影响.
 
-业务架构图 
-
-业务架构图说明 
-
-# <a name="框架说明-组件"></a>框架说明-组件
-
-组件／模块架构图 @yscing
-
-组件／模块架构图说明 
-
-## <a name="输入"></a>输入
-
-与业务结合解释组件／模块 
-
-## <a name="处理"></a>处理
-
-与业务结合解释组件／模块 
-
-### <a name="模型"></a>模型
-
-与业务结合解释组件／模块 
-
-### <a name="训练"></a>训练
-
-与业务结合解释组件／模块 
-
-## <a name="输出"></a>输出
-
-与业务结合解释组件／模块 
 
 ## <a name="如何变成自己的项目">如何变成自己的项目
 
