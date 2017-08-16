@@ -35,40 +35,99 @@ TensorFlow具备以下特点——
 # <a name="快速部署"></a>快速部署
 
 ## 一键部署
+
 [一键部署在好雨云平台](http://app.goodrain.com/group/detail/30/)
-后期会支持在好雨云平台训练
 
 ## 本地部署
-建议利用GPU环境进行训练，可以加快训练节奏.
 
-1.Git clone相关代码
-2.运行 `python main.py --train`进行相关的
+1.Git clone
+
+    ```
+    git clone https://github.com/cloudframeworks-tensorflow/ErGo
+    ```
+
+2.执行如下命令，进行相关的？
+
+    ```
+    python main.py --train
+    ```
+
 3.查看训练效果
 
-```python
-docker build -t ergo -f Dockerfile.cpu .
-redis-server &
-docker run -itd -p 8000:8000 --name ergo ergo
-```
-访问  http://localhost:8000即可进行人机对话
+    ```python
+    docker build -t ergo -f Dockerfile.cpu .
+    redis-server &
+    docker run -itd -p 8000:8000 --name ergo ergo
+    ```
+
+4.访问对话页面
+
+    ```
+    http://localhost:8000
+    ```
 
 其中 learningRate和dropout这两个参数对训练的效果有着直接影响.
 
+# <a name="业务说明"></a>业务说明
+
+聊天机器人（Chatbot）——**ErGo**，基于TensorFlow实现，可与用户互动完成智能对话。
+
+工作流程如下图所示：
+
+<div align=center><img width="900" height="" src="./image/work-flow.png"/></div>
+
+* 流程包括提问（Ask）、检索（Retrieve）、抽取（Extraction）、回答（Answer）4部分
+* 用户通过界面（Web）提问后，ErGo将在已训练好的数据（Trained Data）中检索并抽取回答
+* 抽取回答后通过界面反馈给用户
+
+# <a name="技术流程"></a>技术流程
+
+ErGo技术流程整体可分为**输入**、**处理**（包括模型及训练）、**输出**三部分，如下图所示：
+
+<div align=center><img width="900" height="" src="./image/ergo-flow.png"/></div>
+
+分点解释上图流程 @ysicing
+
+## <a name="输入"></a>输入
+
+与例子结合解释 @ysicing
+
+## <a name="处理"></a>处理
+
+与例子结合解释 @ysicing
+
+### <a name="模型"></a>模型
+
+与例子结合解释 @ysicing
+
+### <a name="训练"></a>训练
+
+与例子结合解释 @ysicing
+
+*建议利用GPU环境进行训练*
+
+## <a name="输出"></a>输出
+
+与例子结合解释 @ysicing
 
 ## <a name="如何变成自己的项目">如何变成自己的项目
+
+* 替换训练数据
+* 替换展示界面
 
 理论上只需提供自己项目相关的训练数据即可，后期会支持相关api接口调用。
 
 # <a name="更新计划"></a>更新计划
 
-* `文档` 
-* `组件` 
+* `训练` 支持云平台训练 
+* `展示界面` 提供API接口
+* `展示界面` 通过微信展示 
 
 点击查看[历史更新](CHANGELOG.md)
 
 # <a name="社群贡献"></a>社群贡献
 
-+ QQ群: 
++ QQ群: 621870673
 + [参与贡献](CONTRIBUTING.md)
 + [联系我们](mailto:info@goodrain.com)
 
