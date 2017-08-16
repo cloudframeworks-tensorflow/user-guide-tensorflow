@@ -22,8 +22,10 @@ TensorFlow具备以下特点——
 # 内容概览
 
 * [快速部署](#快速部署)
-* [框架说明-业务](#框架说明-业务) 
-* [框架说明-组件](#框架说明-组件)
+    * [一键部署](#一键部署)
+    * [本地部署](#本地部署) 
+* [业务说明](#业务说明)
+* [技术流程](#技术流程)
     * [输入](#输入)
     * [处理](#处理)
         * [模型](#模型)
@@ -40,19 +42,19 @@ TensorFlow具备以下特点——
 
 ## 本地部署
 
-1.Git clone
+1. Git clone
 
     ```
     git clone https://github.com/cloudframeworks-tensorflow/ErGo
     ```
 
-2.执行如下命令，进行相关的？
+2. 执行如下命令，进行相关的？
 
     ```
     python main.py --train
     ```
 
-3.查看训练效果
+3. 查看训练效果
 
     ```python
     docker build -t ergo -f Dockerfile.cpu .
@@ -60,7 +62,7 @@ TensorFlow具备以下特点——
     docker run -itd -p 8000:8000 --name ergo ergo
     ```
 
-4.访问对话页面
+4. 访问对话页面
 
     ```
     http://localhost:8000
