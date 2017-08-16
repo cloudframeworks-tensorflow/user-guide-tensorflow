@@ -88,29 +88,39 @@ ErGo技术流程整体可分为**输入**、**处理**（包括模型及训练�
 
 <div align=center><img width="900" height="" src="./image/ergo-flow.png"/></div>
 
-分点解释上图流程 @ysicing
 
 ## <a name="输入"></a>输入
 
-与例子结合解释 @ysicing
+基础数据来源于[Cornell_Movie-Dialogs_Corpus](http://www.cs.cornell.edu/~cristian/Cornell_Movie-Dialogs_Corpus.html)
+
 
 ## <a name="处理"></a>处理
 
-与例子结合解释 @ysicing
+Tensorflow支持多种数据读取方式.这里默认使用从文件中读取，这里又涉及到数据的转换和读取。
 
 ### <a name="模型"></a>模型
 
-与例子结合解释 @ysicing
+选择的是循环神经网络(RNN)的及其的一个重要结构长短时记忆网络(LSTM).
+
+- seq2seq model
+- 2 LTSM layers
+
+定义基本的LSTM结构作为循环体的基础结构，默认lstm_hidden_size默认为512
+在通过MultiRNNCell类实现深层循环神经网络了，同时使用dropout
+具体参考 代码的model部分 
+
+参考 [A Neural Conversational Model](https://arxiv.org/abs/1506.05869)
 
 ### <a name="训练"></a>训练
 
-与例子结合解释 @ysicing
+使用给定的模型model在数据data上运行train并返回全部数据上的perplexity的值。具体实现参考代码main.py训练部分
+其中lr和dropout值的设定对训练结果的影响最大.
 
 *建议利用GPU环境进行训练*
 
 ## <a name="输出"></a>输出
 
-与例子结合解释 @ysicing
+默认会将训练结果保存为model.ckpt.
 
 ## <a name="如何变成自己的项目">如何变成自己的项目
 
