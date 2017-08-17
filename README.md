@@ -42,19 +42,24 @@ TensorFlow具备以下特点——
 
 ## 本地部署
 
-1. Git clone
+1. [准备Docker环境]()
+ 
+2. Git clone
 
     ```
     git clone https://github.com/cloudframeworks-tensorflow/ErGo
     ```
 
-2. 执行如下命令，进行相关的？
+3. 执行如下命令，进行训练
+
+    训练时长主要取决于数据大小、learningRate（学习效率）、[dropout](https://www.tensorflow.org/get_started/mnist/pros)及设备计算能力（推荐使用GPU，训练完成后脚本会自动退出）
 
     ```
+    cd ErGo
     python main.py --train
     ```
 
-3. 查看训练效果
+4. 初始化web ui
 
     ```python
     docker build -t ergo -f Dockerfile.cpu .
@@ -62,13 +67,11 @@ TensorFlow具备以下特点——
     docker run -itd -p 8000:8000 --name ergo ergo
     ```
 
-4. 访问对话页面
+5. 访问
 
     ```
     http://localhost:8000
     ```
-
-其中 learningRate和dropout这两个参数对训练的效果有着直接影响.
 
 # <a name="业务说明"></a>业务说明
 
@@ -78,7 +81,7 @@ TensorFlow具备以下特点——
 
 <div align=center><img width="900" height="" src="./image/work-flow.png"/></div>
 
-对于聊天机器人来说，训练数据直接影响答案的准确性、聊天机器人的个性等对话效果，例如——
+例如——
 
 ```
 Master: HI ERGO
@@ -94,13 +97,13 @@ ErGo的技术流程整体可分为**输入**、**处理**（包括模型及训�
 
 <div align=center><img width="900" height="" src="./image/ergo-flow.png"/></div>
 
-* 在输入阶段，ErGo加载Data（语料）并进行预处理
-* 经过预处理的的Data进入处理阶段，加载训练模型（Training Model）进行反复训练
-* 完成训练后的Data将被存储起来作为Trained Data，进而完成与用户的对话
+* 在输入阶段，ErGo加载Data（语料）并进行数据处理
+* 处理完成后，由训练模型（Training Model）加载并进行反复训练
+* 完成训练后，ErGo即可根据训练好的数据进行相关预测，即与用户完成对话
 
 ## <a name="输入"></a>输入
 
-基础数据来源于[Cornell_Movie-Dialogs_Corpus](http://www.cs.cornell.edu/~cristian/Cornell_Movie-Dialogs_Corpus.html)
+输入阶段本例选用语料来源于[Cornell_Movie-Dialogs_Corpus](http://www.cs.cornell.edu/~cristian/Cornell_Movie-Dialogs_Corpus.html)
 
 ## <a name="处理"></a>处理
 
@@ -108,7 +111,7 @@ Tensorflow支持多种数据读取方式.默认使用从文件中读取，标准
 
 ### <a name="模型"></a>模型
 
-选择的是循环神经网络(RNN)的及其的一个重要结构长短时记忆网络(LSTM).
+选择的是循环神经网络(RNN)及其的一个重要结构长短时记忆网络(LSTM).
 
 - seq2seq model
 - 2 LTSM layers
@@ -124,8 +127,6 @@ Tensorflow支持多种数据读取方式.默认使用从文件中读取，标准
 使用给定的模型model在数据data上运行train并返回全部数据上的perplexity的值。
 具体实现参考代码main.py训练部分.
 其中lr和dropout值的设定对训练结果的影响最大.  
-
-*建议利用GPU环境进行训练*
 
 ## <a name="输出"></a>输出
 
