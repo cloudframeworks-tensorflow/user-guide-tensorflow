@@ -74,25 +74,33 @@ TensorFlow具备以下特点——
 
 聊天机器人（Chatbot）——**ErGo**，基于TensorFlow实现，可与用户互动完成智能对话。
 
-工作流程如下图所示：
+工作流程可分为提问（Ask）、检索（Retrieve）、抽取（Extraction）、回答（Answer）4部分，用户通过界面（Web）提出问句，ErGo将在已训练数据（Trained Data）中检索并抽取答案，通过界面反馈给用户，如下图所示：
 
 <div align=center><img width="900" height="" src="./image/work-flow.png"/></div>
 
-* 流程包括提问（Ask）、检索（Retrieve）、抽取（Extraction）、回答（Answer）4部分
-* 用户通过界面（Web）提问后，ErGo将在已训练好的数据（Trained Data）中检索并抽取回答
-* 抽取回答后通过界面反馈给用户
+对于聊天机器人来说，训练数据直接影响答案的准确性、聊天机器人的个性等对话效果，例如——
+
+```
+Master: HI ERGO
+ERGO: HI
+
+Master: I LOVE YOU
+ERGO: I'M SORRY
+```
 
 # <a name="技术流程"></a>技术流程
 
-ErGo技术流程整体可分为**输入**、**处理**（包括模型及训练）、**输出**三部分，如下图所示：
+ErGo的技术流程整体可分为**输入**、**处理**（包括模型及训练）、**输出**三阶段，如下图所示：
 
 <div align=center><img width="900" height="" src="./image/ergo-flow.png"/></div>
 
+* 在输入阶段，ErGo加载Data（语料）并进行预处理
+* 经过预处理的的Data进入处理阶段，加载训练模型（Training Model）进行反复训练
+* 完成训练后的Data将被存储起来作为Trained Data，进而完成与用户的对话
 
 ## <a name="输入"></a>输入
 
 基础数据来源于[Cornell_Movie-Dialogs_Corpus](http://www.cs.cornell.edu/~cristian/Cornell_Movie-Dialogs_Corpus.html)
-
 
 ## <a name="处理"></a>处理
 
