@@ -96,7 +96,7 @@ ErGo技术流程整体可分为**输入**、**处理**（包括模型及训练�
 
 ## <a name="处理"></a>处理
 
-Tensorflow支持多种数据读取方式.这里默认使用从文件中读取，这里又涉及到数据的转换和读取。
+Tensorflow支持多种数据读取方式.默认使用从文件中读取，标准编码、解码器。
 
 ### <a name="模型"></a>模型
 
@@ -105,16 +105,17 @@ Tensorflow支持多种数据读取方式.这里默认使用从文件中读取，
 - seq2seq model
 - 2 LTSM layers
 
-定义基本的LSTM结构作为循环体的基础结构，默认lstm_hidden_size默认为512
-在通过MultiRNNCell类实现深层循环神经网络了，同时使用dropout
+定义基本的LSTM结构作为循环体的基础结构，默认lstm_hidden_size默认为512  
+在通过MultiRNNCell类实现深层循环神经网络了，同时使用dropout  
 具体参考 代码的model部分 
 
 参考 [A Neural Conversational Model](https://arxiv.org/abs/1506.05869)
 
 ### <a name="训练"></a>训练
 
-使用给定的模型model在数据data上运行train并返回全部数据上的perplexity的值。具体实现参考代码main.py训练部分
-其中lr和dropout值的设定对训练结果的影响最大.
+使用给定的模型model在数据data上运行train并返回全部数据上的perplexity的值。
+具体实现参考代码main.py训练部分.
+其中lr和dropout值的设定对训练结果的影响最大.  
 
 *建议利用GPU环境进行训练*
 
