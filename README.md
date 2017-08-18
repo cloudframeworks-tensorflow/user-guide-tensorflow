@@ -26,11 +26,9 @@ TensorFlow具备以下特点——
     * [本地部署](#本地部署) 
 * [业务说明](#业务说明)
 * [技术流程](#技术流程)
-    * [输入](#输入)
-    * [处理](#处理)
-        * [模型](#模型)
-        * [训练](#训练)
-    * [输出](#输出)
+    * [初始数据单元](#初始数据单元)
+    * [数据加工](#数据加工)
+    * [训练后数据](#训练后数据)
 * [更新计划](#更新计划)
 * [社群贡献](#社群贡献)
 
@@ -42,7 +40,7 @@ TensorFlow具备以下特点——
 
 ## 本地部署
 
-1. [准备Docker环境]()
+1. [准备Docker环境](./READMORE/install-docker.md)
  
 2. Git clone
 
@@ -93,49 +91,41 @@ ERGO: I'M SORRY
 
 # <a name="技术流程"></a>技术流程
 
-ErGo的整体架构就是数据到数据的流程，就是原始数据单元经过数据模型处理后得到新的数据单元，如下图所示：
+ErGo的整体架构是**数据到数据**的流程，即原始数据单元经过数据模型处理后得到新的数据单元，如下图所示：
 
 <div align=center><img width="900" height="" src="./image/ergo-flow.png"/></div>
 
-* 在输入阶段，ErGo加载Data（语料）并进行数据处理 
+* ErGo加载Data（语料）并进行数据处理
 * 处理完成后，由训练模型（Training Model）加载并进行反复训练
-* 完成训练后，ErGo即可根据训练好的数据进行相关预测，即与用户完成对话
+* 完成训练后，ErGo可根据训练后的数据进行相关预测，即与用户完成对话
 
 ## <a name="初始数据单元"></a>初始数据单元
 
-Demo使用的初始数据单元来源于[Cornell_Movie-Dialogs_Corpus](http://www.cs.cornell.edu/~cristian/Cornell_Movie-Dialogs_Corpus.html)
+本例中所使用的初始数据单元来源于[Cornell_Movie-Dialogs_Corpus](http://www.cs.cornell.edu/~cristian/Cornell_Movie-Dialogs_Corpus.html)
 
-## <a name="加工"></a>加工过程即数据处理过程和训练过程
-1. Tensorflow原生支持多种数据读取方式.Demo默认使用从文件中读取的方式加载处理初始数据，处理后的数据会保存到随机生成的pkl文件。
-2. Demo是基于循环神经网络(RNN)及两层长短时记忆网络(LSTM)，同时也使用了seq2seq模型，其主要就是定义基本的LSTM结构作为循环体的基础结构，通过MultiRNNCell类实现深层循环神经网络，利用dropout策略在处理完的数据上运行tf.train操作，返回全部数据上的perplexity的值，具体实现可以参考Demo的model部分和train部分
+## <a name="数据加工"></a>数据加工
 
-seq2seq 可参考 [tf_seq2seq_chatbot](https://github.com/nicolas-ivanov/tf_seq2seq_chatbot)
-RNN 可参考 [A Neural Conversational Model](https://arxiv.org/abs/1506.05869)
+数据加工过程即数据的**处理**和**训练**过程
 
+1. Tensorflow原生支持多种数据读取方式，本例默认使用**从文件中读取**的方式加载处理初始数据，处理后的数据会保存为随机生成的pkl文件
+2. 本例中数据模型基于循环神经网络（[RNN](https://arxiv.org/abs/1506.05869)）及两层长短时记忆网络（[LSTM](http://people.idsia.ch/~juergen/lstm/)），同时使用了[seq2seq](https://www.tensorflow.org/tutorials/seq2seq)模型，其主要就是定义基本的LSTM结构作为循环体的基础结构，通过MultiRNNCell类实现深层循环神经网络，利用dropout策略在处理完的数据上运行tf.train操作，返回全部数据上的perplexity的值，具体实现参考实例代码[model]()&[train]()
 
-## <a name="训练后数据"></a>训练后数据及基于此的相关预测
+## <a name="训练后数据"></a>训练后数据
 
-默认会将训练结果保存为model.ckpt.
-每次进行相关的预测即对话会加载相关的模型数据，返回接近最优的回答。
-
+* 数据加工完成后，Tensorflow默认会将训练结果保存为model.ckpt
+* ErGo每次进行预测（即对话）时会加载相关的模型数据，返回接近最优的回答
 
 ## <a name="如何变成自己的项目">如何变成自己的项目
 
-* 替换训练数据 
-
-    替换相关的txt文档
-
-* 修改训练模型
-
-    修改model.py部分的代码
-
-理论上只需提供自己项目相关的训练数据即可，后期会支持相关api接口调用。
+1. 替换训练数据：替换txt文件
+2. 修改训练模型：修改model.py部分代码
+3. 参考[本地部署](https://github.com/cloudframeworks-tensorflow/user-guide-tensorflow#本地部署)执行数据训练及访问等
 
 # <a name="更新计划"></a>更新计划
 
-* `训练` 支持云平台训练 
-* `展示界面` 提供API接口
-* `展示界面` 通过微信展示 
+* `训练` 提供训练数据API接口
+* `展示` 提供展示界面API接口
+* `文档` 微信界面展示接入 
 
 点击查看[历史更新](CHANGELOG.md)
 
