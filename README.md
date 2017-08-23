@@ -89,23 +89,39 @@ Master: I LOVE YOU
 ERGO: I'M SORRY
 ```
 
-# <a name="技术流程"></a>技术流程
+# <a name="技术流程"></a>ErGO实现
 
-ErGo的整体架构是**数据到数据**的流程，即原始数据单元经过数据模型处理后得到新的数据单元，如下图所示：
+## 整体架构
+ErGo的整体架构如下图所示：
 
 <div align=center><img width="900" height="" src="./image/ergo-flow.png"/></div>
+
+
 
 * ErGo加载Data（语料）并进行数据处理
 * 处理完成后，由训练模型（Training Model）加载并进行反复训练
 * 完成训练后，ErGo可根据训练后的数据进行相关预测，即与用户完成对话
 
-## <a name="初始数据单元"></a>初始数据单元
+## 模型选取
+聊天机器人使用的深度学习模型几乎都是Seq2Seq,ErGo也是如此。Seq2Seq模型由两个主要部件组成，一个是编码器RNN，另一个是解码器RNN。从高层次上来说，编码器的工作是将输入文本信息生成固定的表示。解码器则是接收这个表示，并生成一个可变长度的文本，以响应它。
 
-本例中所使用的初始数据单元来源于[Cornell_Movie-Dialogs_Corpus](http://www.cs.cornell.edu/~cristian/Cornell_Movie-Dialogs_Corpus.html)
+可以参考
+- [seq2seq模型初探](https://github.com/zhuanxuhit/nd101/blob/master/1.Intro_to_Deep_Learning/11.How_to_Make_a_Language_Translator/1-seq2seq.ipynb)
+- [seq2seq model](https://github.com/tensorflow/models/blob/master/tutorials/rnn/translate/seq2seq_model.py)
 
-## <a name="数据加工"></a>数据加工
+## <a name="初始数据单元"></a>数据集的选择
 
-数据加工过程即数据的**处理**和**训练**过程
+在考虑到训练机器人来回答具体某类问题或提供某种服务,第一件事就到选择哪种数据集，然后基于此进行我们需要的模型进行训练。对于序列模型，我们需要大量的会话日志。从高层次上讲，这个编码器-解码器网络需要能够正确理解每个查询(编码器输入)所期望的响应类型(解码器输出)。
+常见的数据集有康奈尔电影对话语料库、Ubuntu对话语料库等。
+本例中所使用的数据集来源于[Cornell_Movie-Dialogs_Corpus](http://www.cs.cornell.edu/~cristian/Cornell_Movie-Dialogs_Corpus.html)
+
+
+## 创建数据集
+
+数据集的创建是机器学习的一个重要组成部分，它涉及到数据集预处理.
+本例使用的是已经预处理完的数据,如果想研究如何预处理数据，可以研究[Word2vec](https://github.com/dav/word2vec)
+
+## <a name="数据加工"></a>训练
 
 1. Tensorflow原生支持多种数据读取方式，本例默认使用**从文件中读取**的方式加载处理初始数据，处理后的数据会保存为随机生成的pkl文件
 2. 本例中数据模型基于循环神经网络（[RNN](https://arxiv.org/abs/1506.05869)）及两层长短时记忆网络（[LSTM](http://people.idsia.ch/~juergen/lstm/)），同时使用了[seq2seq](https://www.tensorflow.org/tutorials/seq2seq)模型，其主要就是定义基本的LSTM结构作为循环体的基础结构，通过MultiRNNCell类实现深层循环神经网络，利用dropout策略在处理完的数据上运行tf.train操作，返回全部数据上的perplexity的值，具体实现参考实例代码[model]()&[train]()
@@ -115,11 +131,19 @@ ErGo的整体架构是**数据到数据**的流程，即原始数据单元经过
 * 数据加工完成后，Tensorflow默认会将训练结果保存为model.ckpt
 * ErGo每次进行预测（即对话）时会加载相关的模型数据，返回接近最优的回答
 
+#### 改进方法
+在交互过程中可以看出不足的地方，下面列出可以提高ErGo性能的方法：
+- 提供更多的数据库，以帮助从更大的会话语料库中学习
+- LSTM结构参数的调优，如LSTM单元数、LSTM层数、优化器的选择、训练迭代次数
+
+
 ## <a name="如何变成自己的项目">如何变成自己的项目
 
-1. 替换训练数据：替换txt文件
-2. 修改训练模型：修改model.py部分代码
-3. 参考[本地部署](https://github.com/cloudframeworks-tensorflow/user-guide-tensorflow#本地部署)执行数据训练及访问等
+1. 获取自己的数据副本，利用相关工具或脚本提取相关的对话序列生成自己的数据集
+2. 利用word2vec为自己数据集中出现的单词生成单词向量。
+3. 可以根据需求来拓展修改相关model函数
+4. 训练模型
+5. 参考[本地部署](https://github.com/cloudframeworks-tensorflow/user-guide-tensorflow#本地部署)执行数据训练及访问等
 
 # <a name="更新计划"></a>更新计划
 
