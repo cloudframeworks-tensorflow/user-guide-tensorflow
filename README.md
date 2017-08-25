@@ -1,10 +1,10 @@
 # [云框架]TensorFlow
 
-![](https://img.shields.io/badge/Release-v1.5-green.svg)
+![](https://img.shields.io/badge/Release-v1.0-green.svg)
 [![](https://img.shields.io/badge/Producer-yscing-orange.svg)](CONTRIBUTORS.md)
 ![](https://img.shields.io/badge/License-Apache_2.0-blue.svg)
 
-[TensorFlow](https://www.tensorflow.org/)是Google开源的人工智能（Machine Intelligence）软件库，更具体来说，TensorFlow是使用数据流图（[Data Flow Graphs](http://web.cecs.pdx.edu/~mperkows/temp/JULY/data-flow-graph.pdf)）进行数值计算的开源软件库。**Tensor**（[张量](https://en.wikipedia.org/wiki/Tensor)）指的是在节点间相互联系的多维数据数组，**Flow**（流）指基于数据流图的计算。TensorFlow架构灵活，小到智能手机，大到数据中心服务器均可展开计算，同时具备很强的通用性，适用于包括图形分类、音频处理、推荐系统和自然语言处理等在内的各种计算领域。
+[TensorFlow](https://www.tensorflow.org/)是Google开源的人工智能（Machine Intelligence）软件库，是使用数据流图（[Data Flow Graphs](http://web.cecs.pdx.edu/~mperkows/temp/JULY/data-flow-graph.pdf)）进行数值计算的开源软件库。**Tensor**（[张量](https://en.wikipedia.org/wiki/Tensor)）指在节点间相互联系的多维数据数组，**Flow**（流）指基于数据流图的计算。TensorFlow架构灵活，小到智能手机，大到数据中心服务器均可展开计算，同时具备很强的通用性，适用于包括图形分类、音频处理、推荐系统和自然语言处理等在内的各种计算领域。
 
 TensorFlow具备以下特点——
 
@@ -15,7 +15,7 @@ TensorFlow具备以下特点——
 * 多语言（Language Options）：利用python构建和执行计算图，支持C++的语言，未来将支持Lua、JavaScript、R等
 * 性能优化（Maximize Performance）：支持线程、队列、异步计算，并根据需要分配计算元素
 
-自15年年底开源以来，TensorFlow迅速流行，除了Google自己，Airbnb、Snapchat、eBay、Twitter等知名公司纷纷加入到TensorFlow的使用者阵营当中。
+自15年年底开源以来，TensorFlow迅速流行，除了Google，Airbnb、Snapchat、eBay、Twitter等知名公司也纷纷加入到TensorFlow的使用者阵营当中。
 
 本篇[云框架](ABOUT.md)将以**ErGo**（一款基于TensorFlow的Chatbot）为例介绍TensorFlow实践。
 
@@ -24,10 +24,14 @@ TensorFlow具备以下特点——
 * [快速部署](#快速部署)
     * [一键部署](#一键部署)
     * [本地部署](#本地部署) 
+* [背景知识](#背景知识)
 * [业务说明](#业务说明)
-* [技术流程](#技术流程)
-    * [初始数据单元](#初始数据单元)
-    * [数据加工](#数据加工)
+* [ErGo实现](#ergo实现)
+    * [整体架构](#整体架构)
+    * [选取模型](#选取模型)
+    * [选取数据集](#选取数据集)
+    * [创建数据集](#创建数据集)
+    * [训练](#训练)
     * [训练后数据](#训练后数据)
 * [更新计划](#更新计划)
 * [社群贡献](#社群贡献)
@@ -71,6 +75,21 @@ TensorFlow具备以下特点——
     http://localhost:8000
     ```
 
+# <a name="背景知识"></a>背景知识
+
+TensorFlow门槛较高，背后需要大量且有一定深度的数学理论知识和技术知识：
+
+* 导数与微积分
+* 矩阵与线性代数
+* 基本编程原则
+* 机器学习基本概念
+
+同时需要有一定的python编程和组织模块的经验，了解Numpy库、matplotlib库、前馈神经网络（feed-forward neural networks）、卷积神经网络（convolutional neural networks）以及循环神经网络（recurrent neural networks）等，建议通过相关专业书籍进行学习或参考下列链接——
+
+[Standford - CS 20SI: Tensorflow for Deep Learning Research](http://web.stanford.edu/class/cs20si/index.html)
+[Tensorflow Playground](http://playground.tensorflow.org/)
+[Tensorflow Docs - 中文](http://www.tensorfly.cn/tfdoc/tutorials/overview.html)
+
 # <a name="业务说明"></a>业务说明
 
 聊天机器人（Chatbot）——**ErGo**，基于TensorFlow实现，可与用户互动完成智能对话。
@@ -89,53 +108,63 @@ Master: I LOVE YOU
 ERGO: I'M SORRY
 ```
 
-# <a name="技术流程"></a>ErGO实现
+# <a name="ergo实现"></a>ErGO实现
 
-## 整体架构
+## <a name="整体架构"></a>整体架构
+
 ErGo的整体架构如下图所示：
 
 <div align=center><img width="900" height="" src="./image/ergo-flow.png"/></div>
-
-
 
 * ErGo加载Data（语料）并进行数据处理
 * 处理完成后，由训练模型（Training Model）加载并进行反复训练
 * 完成训练后，ErGo可根据训练后的数据进行相关预测，即与用户完成对话
 
-## 模型选取
-聊天机器人使用的深度学习模型几乎都是Seq2Seq,ErGo也是如此。Seq2Seq模型由两个主要部件组成，一个是编码器RNN，另一个是解码器RNN。从高层次上来说，编码器的工作是将输入文本信息生成固定的表示。解码器则是接收这个表示，并生成一个可变长度的文本，以响应它。
+## <a name="选取模型"></a>选取模型
 
-可以参考
+Seq2Seq是最普遍的聊天机器人深度学习模型，ErGo同样采用了Seq2Seq。
+
+Seq2Seq模型由两个主要部件组成，一个是编码器RNN，另一个是解码器RNN。
+
+编码器的工作是将输入文本信息生成固定的表示；解码器则是接收这个表示，并生成一个可变长度的文本来响应。
+
+进一步了解Seq2Seq
+
 - [seq2seq模型初探](https://github.com/zhuanxuhit/nd101/blob/master/1.Intro_to_Deep_Learning/11.How_to_Make_a_Language_Translator/1-seq2seq.ipynb)
 - [seq2seq model](https://github.com/tensorflow/models/blob/master/tutorials/rnn/translate/seq2seq_model.py)
 
-## <a name="初始数据单元"></a>数据集的选择
+## <a name="选取数据集"></a>选取数据集
 
-在考虑到训练机器人来回答具体某类问题或提供某种服务,第一件事就到选择哪种数据集，然后基于此进行我们需要的模型进行训练。对于序列模型，我们需要大量的会话日志。从高层次上讲，这个编码器-解码器网络需要能够正确理解每个查询(编码器输入)所期望的响应类型(解码器输出)。
-常见的数据集有康奈尔电影对话语料库、Ubuntu对话语料库等。
-本例中所使用的数据集来源于[Cornell_Movie-Dialogs_Corpus](http://www.cs.cornell.edu/~cristian/Cornell_Movie-Dialogs_Corpus.html)
+聊天机器人往往用于回答具体某类问题或提供某种服务，因此在训练前，第一件事便是**选取数据集，并基于所选数据集类型，在根据自己业务需求定制的训练模型之上，进行定向训练**。
 
+序列模型需要大量的会话日志，以便“编码器-解码器网络”能够正确理解每个查询(编码器输入)所期望的响应类型(解码器输出)。
 
-## 创建数据集
+常见数据集包括[Cornell_Movie-Dialogs_Corpus](http://www.cs.cornell.edu/~cristian/Cornell_Movie-Dialogs_Corpus.html)（本例使用）、[Ubuntu Dialogue Corpus](http://dataset.cs.mcgill.ca/ubuntu-corpus-1.0/)等。
 
-数据集的创建是机器学习的一个重要组成部分，它涉及到数据集预处理.
-本例使用的是已经预处理完的数据,如果想研究如何预处理数据，可以研究[Word2vec](https://github.com/dav/word2vec)
+## <a name="创建数据集"></a>创建数据集
 
-## <a name="数据加工"></a>训练
+创建数据集设计到**数据集预处理**，本例中使用已经预处理完成的数据。
+
+进一步了解如何预处理数据，请参考——
+
+[Word2vec](https://github.com/dav/word2vec)
+[tflearn - data management](http://tflearn.org/data_utils/)
+
+## <a name="训练"></a>训练
 
 1. Tensorflow原生支持多种数据读取方式，本例默认使用**从文件中读取**的方式加载处理初始数据，处理后的数据会保存为随机生成的pkl文件
 2. 本例中数据模型基于循环神经网络（[RNN](https://arxiv.org/abs/1506.05869)）及两层长短时记忆网络（[LSTM](http://people.idsia.ch/~juergen/lstm/)），同时使用了[seq2seq](https://www.tensorflow.org/tutorials/seq2seq)模型，其主要就是定义基本的LSTM结构作为循环体的基础结构，通过MultiRNNCell类实现深层循环神经网络，利用dropout策略在处理完的数据上运行tf.train操作，返回全部数据上的perplexity的值，具体实现参考实例代码[model]()&[train]()
 
 ## <a name="训练后数据"></a>训练后数据
 
-* 数据加工完成后，Tensorflow默认会将训练结果保存为model.ckpt
-* ErGo每次进行预测（即对话）时会加载相关的模型数据，返回接近最优的回答
+训练完成后，Tensorflow默认会将训练结果保存为model.ckpt。
 
-#### 改进方法
-在交互过程中可以看出不足的地方，下面列出可以提高ErGo性能的方法：
-- 提供更多的数据库，以帮助从更大的会话语料库中学习
-- LSTM结构参数的调优，如LSTM单元数、LSTM层数、优化器的选择、训练迭代次数
+ErGo每次进行预测（即对话）时会加载相关的模型数据，并返回接近最优的回答。
 
+但在交互过程中，我们可能会发现结果不尽如人意，建议通过以下方法进行改进：
+
+* 提供更多的数据库，以帮助从更大的会话语料库中学习
+* LSTM结构参数的调优，如LSTM单元数、LSTM层数、优化器的选择、训练迭代次数
 
 ## <a name="如何变成自己的项目">如何变成自己的项目
 
@@ -143,7 +172,8 @@ ErGo的整体架构如下图所示：
 2. 利用word2vec为自己数据集中出现的单词生成单词向量。
 3. 可以根据需求来拓展修改相关model函数
 4. 训练模型
-5. 参考[本地部署](https://github.com/cloudframeworks-tensorflow/user-guide-tensorflow#本地部署)执行数据训练及访问等
+5. 参考[本地部署](https://github.com/cloudframeworks-tensorflow/user-guide-tensorflow#本地部署)执行训练
+6. 访问
 
 # <a name="更新计划"></a>更新计划
 
