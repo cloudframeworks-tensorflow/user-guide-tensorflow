@@ -152,8 +152,9 @@ Seq2Seq模型由两个主要部件组成，一个是编码器RNN，另一个是�
 
 ## <a name="训练"></a>训练
 
-1. Tensorflow原生支持多种数据读取方式，本例默认使用**从文件中读取**的方式加载处理初始数据，处理后的数据会保存为随机生成的pkl文件
-2. 本例中数据模型基于循环神经网络（[RNN](https://arxiv.org/abs/1506.05869)）及两层长短时记忆网络（[LSTM](http://people.idsia.ch/~juergen/lstm/)），同时使用了[seq2seq](https://www.tensorflow.org/tutorials/seq2seq)模型，其主要就是定义基本的LSTM结构作为循环体的基础结构，通过MultiRNNCell类实现深层循环神经网络，利用dropout策略在处理完的数据上运行tf.train操作，返回全部数据上的perplexity的值，具体实现参考实例代码[model]()&[train]()
+Tensorflow原生支持多种数据读取方式，本例默认使用**从文件中读取**的方式加载处理初始数据，处理后的数据会保存为随机生成的pkl文件
+
+本例中数据模型基于循环神经网络（[RNN](https://arxiv.org/abs/1506.05869)）及两层长短时记忆网络（[LSTM](http://people.idsia.ch/~juergen/lstm/)），同时使用了[seq2seq](https://www.tensorflow.org/tutorials/seq2seq)模型，其主要就是定义基本的LSTM结构作为循环体的基础结构，通过MultiRNNCell类实现深层循环神经网络，利用dropout策略在处理完的数据上运行tf.train操作，返回全部数据上的perplexity的值，具体实现参考实例代码[model]()&[train]()
 
 ## <a name="训练后数据"></a>训练后数据
 
@@ -168,12 +169,19 @@ ErGo每次进行预测（即对话）时会加载相关的模型数据，并返�
 
 ## <a name="如何变成自己的项目">如何变成自己的项目
 
-1. 获取自己的数据副本，利用相关工具或脚本提取相关的对话序列生成自己的数据集
-2. 利用word2vec为自己数据集中出现的单词生成单词向量。
-3. 可以根据需求来拓展修改相关model函数
-4. 训练模型
-5. 参考[本地部署](https://github.com/cloudframeworks-tensorflow/user-guide-tensorflow#本地部署)执行训练
-6. 访问
+1. 生成数据集
+    
+    获取自己的数据副本，利用相关工具或脚本提取相关的对话序列生成自己的数据集
+    
+2. 生成单词向量
+
+    利用[word2vec](https://github.com/dav/word2vec)为数据集中出现的单词生成单词向量
+    
+3. 可以根据需求来拓展修改相关model函数（可选）
+
+4. 参考[本地部署](https://github.com/cloudframeworks-tensorflow/user-guide-tensorflow#本地部署)执行训练
+
+5. 访问
 
 # <a name="更新计划"></a>更新计划
 
