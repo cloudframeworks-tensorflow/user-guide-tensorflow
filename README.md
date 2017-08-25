@@ -86,9 +86,9 @@ TensorFlow门槛较高，背后需要大量且有一定深度的数学理论知�
 
 同时需要有一定的python编程和组织模块的经验，了解Numpy库、matplotlib库、前馈神经网络（feed-forward neural networks）、卷积神经网络（convolutional neural networks）以及循环神经网络（recurrent neural networks）等，建议通过相关专业书籍进行学习或参考下列链接——
 
-[Standford - CS 20SI: Tensorflow for Deep Learning Research](http://web.stanford.edu/class/cs20si/index.html)
-[Tensorflow Playground](http://playground.tensorflow.org/)
-[Tensorflow Docs - 中文](http://www.tensorfly.cn/tfdoc/tutorials/overview.html)
+* [Standford - CS 20SI: Tensorflow for Deep Learning Research](http://web.stanford.edu/class/cs20si/index.html)
+* [Tensorflow Playground](http://playground.tensorflow.org/)
+* [Tensorflow Docs - 中文](http://www.tensorfly.cn/tfdoc/tutorials/overview.html)
 
 # <a name="业务说明"></a>业务说明
 
@@ -130,8 +130,8 @@ Seq2Seq模型由两个主要部件组成，一个是编码器RNN，另一个是�
 
 进一步了解Seq2Seq
 
-- [seq2seq模型初探](https://github.com/zhuanxuhit/nd101/blob/master/1.Intro_to_Deep_Learning/11.How_to_Make_a_Language_Translator/1-seq2seq.ipynb)
-- [seq2seq model](https://github.com/tensorflow/models/blob/master/tutorials/rnn/translate/seq2seq_model.py)
+* [seq2seq模型初探](https://github.com/zhuanxuhit/nd101/blob/master/1.Intro_to_Deep_Learning/11.How_to_Make_a_Language_Translator/1-seq2seq.ipynb)
+* [seq2seq model](https://github.com/tensorflow/models/blob/master/tutorials/rnn/translate/seq2seq_model.py)
 
 ## <a name="选取数据集"></a>选取数据集
 
@@ -147,8 +147,8 @@ Seq2Seq模型由两个主要部件组成，一个是编码器RNN，另一个是�
 
 进一步了解如何预处理数据，请参考——
 
-[Word2vec](https://github.com/dav/word2vec)
-[tflearn - data management](http://tflearn.org/data_utils/)
+* [Word2vec](https://github.com/dav/word2vec)
+* [tflearn - data management](http://tflearn.org/data_utils/)
 
 ## <a name="训练"></a>训练
 
