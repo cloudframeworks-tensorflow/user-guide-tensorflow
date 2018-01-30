@@ -58,6 +58,7 @@ TensorFlow具备以下特点——
 
     ```
     cd ErGo
+    pip install -r requirements.txt
     python main.py --train
     ```
 
